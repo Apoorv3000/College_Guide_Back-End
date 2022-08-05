@@ -17,14 +17,14 @@ const connect = () => {
       err;
     });
 };
-
+const port = process.env.PORT || 8080;
 //middlewares
 
 app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 
-app.listen(8800, () => {
+app.listen(port, () => {
   connect();
-  console.log("Connected to Server");
+  console.log(`Connected to Server to ${port}`);
 });
