@@ -29,7 +29,7 @@ const UserSchema = new mongoose.Schema(
     role: {
       type: String,
       default: "user",
-      diff: ["admin", "collegeUser"],
+      enum: ["student", "college"],
     },
   },
   { timestamps: true }

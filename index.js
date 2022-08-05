@@ -18,6 +18,7 @@ const connect = () => {
     });
 };
 const port = process.env.PORT || 8080;
+
 //middlewares
 
 app.use(cors());
