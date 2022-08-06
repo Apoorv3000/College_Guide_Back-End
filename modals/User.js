@@ -19,6 +19,10 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    confirmPassword: {
+      type: String,
+      required: true,
+    },
     address: {
       type: String,
     },
@@ -29,7 +33,7 @@ const UserSchema = new mongoose.Schema(
     role: {
       type: String,
       default: "user",
-      enum: ["student", "college"],
+      enum: ["student", "college", "alumni"],
     },
   },
   { timestamps: true }
