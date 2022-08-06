@@ -31,6 +31,10 @@ const UserSchema = new mongoose.Schema(
       default: "user",
       enum: ["student", "college"],
     },
+    confirmpassword :{
+      type :String,
+      required :true,
+    }
   },
   { timestamps: true }
 );
