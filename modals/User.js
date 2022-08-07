@@ -32,13 +32,12 @@ const UserSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      default: "user",
-      enum: ["student", "college", "alumni"],
+      default: "basic",
+      enum: ["student", "college", "alumni", "basic"],
     },
-    confirmpassword :{
-      type :String,
-      required :true,
-    }
+    confirmPassword: {
+      type: String,
+    },
   },
   { timestamps: true }
 );

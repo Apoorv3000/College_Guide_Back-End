@@ -1,21 +1,20 @@
 import mongoose from "mongoose";
 const CoursesSchema = new mongoose.Schema(
   {
-    Branch :{
-        type : [
-            {
-                name:{type: String},
-                seats:{type : String},
-            },
-        ]
+    Branch: {
+      type: [
+        {
+          name: { type: String },
+          seats: { type: String },
+        },
+      ],
     },
-    colleges :{
-        type :[String],
-    },
-    coursename :{
+    colleges: {
       type: [String],
     },
-    
+    coursename: {
+      type: [String],
+    },
   },
   { timestamps: true }
 );
