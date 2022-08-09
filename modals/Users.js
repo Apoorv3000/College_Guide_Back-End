@@ -21,22 +21,17 @@ const UserSchema = new mongoose.Schema(
     },
     confirmPassword: {
       type: String,
-      required: true,
     },
-    address: {
+    city: {
       type: String,
     },
-    ugc_id: {
+    course: {
       type: String,
-      unique: true,
     },
     role: {
       type: String,
       default: "basic",
       enum: ["student", "college", "alumni", "basic"],
-    },
-    confirmPassword: {
-      type: String,
     },
   },
   { timestamps: true }

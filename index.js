@@ -4,8 +4,11 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import authRoute from "./routes/auth.js";
+import usersRoute from "./routes/user.js";
 dotenv.config();
 const app = express();
+
+//db connection
 
 const connect = () => {
   mongoose
@@ -15,7 +18,6 @@ const connect = () => {
     })
     .catch((err) => {
       console.log(err);
-      err;
     });
 };
 const port = process.env.PORT || 8080;
@@ -27,8 +29,12 @@ app.use(express.json());
 app.use(cookieParser());
 
 //routes
+
 app.use("/api/auth", authRoute);
+app.use("/api/user", usersRoute);
+
 //error handling
+
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;
   const errorMessage = err.message || "Something went wrong!";
@@ -41,6 +47,7 @@ app.use((err, req, res, next) => {
 });
 
 //listen to port
+
 app.listen(port, () => {
   connect();
   console.log(`Connected to Server to ${port}`);

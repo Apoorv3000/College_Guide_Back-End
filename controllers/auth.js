@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import User from "../modals/User.js";
-import { createError } from "../utils/error.js";
+import User from "../modals/Users.js";
+import { createError } from "../middlewares/error.js";
 
 //register user function
 export const registerUser = async (req, res, next) => {
@@ -27,6 +27,7 @@ export const registerUser = async (req, res, next) => {
       });
 
       await newUser.save();
+
       res.status(200).send("User has been created");
     } else {
       next(createError(401, "password does not match"));
@@ -50,9 +51,12 @@ export const loginUser = async (req, res, next) => {
     if (!isPasswordCorrect)
       return next(createError(400, "Wrong password or username!"));
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT);
+    const token = jwt.sign(
+      { id: user._id, role: user.role || "basic" },
+      process.env.JWT
+    );
 
-    const { password, ...otherDetails } = user._doc;
+    const { password, role, ...otherDetails } = user._doc;
     res
       .cookie("access_token", token, {
         httpOnly: true,
@@ -62,4 +66,12 @@ export const loginUser = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
+};
+
+//logout
+export const logoutUser = async (req, res, next) => {
+  return res
+    .clearCookie("access_token")
+    .status(200)
+    .json({ message: "Successfully logged out 😏 🍀" });
 };

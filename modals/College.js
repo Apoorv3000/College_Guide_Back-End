@@ -6,6 +6,11 @@ const CollegeSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
+    ugc_id: {
+      type: String,
+      unique: true,
+      required: true,
+    },
     info: {
       type: String,
     },
@@ -76,6 +81,9 @@ const CollegeSchema = new mongoose.Schema(
     ],
     rating: {
       type: String,
+    },
+    isVerified: {
+      type: Boolean,
     },
   },
   { timestamps: true }
