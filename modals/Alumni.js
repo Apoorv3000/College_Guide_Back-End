@@ -25,7 +25,6 @@ const AlumniSchema = new mongoose.Schema(
     websites: {
       type: String,
       enum: ["Twitter", "Linkedin"],
-      required: true,
     },
     college: {
       type: String,
@@ -33,7 +32,12 @@ const AlumniSchema = new mongoose.Schema(
     },
     research: {
       totalPublications: { type: Number },
-      url: { type: [String] },
+      title : [
+        {
+            name:{type: String},
+            url:{type : String}
+        }
+    ],
     },
     branch: {
       type: String,

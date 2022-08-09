@@ -8,10 +8,12 @@ const CollegeSchema = new mongoose.Schema(
     },
     info: {
       type: String,
+      required:true,
     },
     telephone: {
       type: [Number],
       unique: true,
+      required:true,
     },
     location: {
       type: String,
@@ -20,6 +22,7 @@ const CollegeSchema = new mongoose.Schema(
     },
     stream: {
       type: [String],
+      required:true,
     },
     website: {
       type: String,
@@ -28,15 +31,19 @@ const CollegeSchema = new mongoose.Schema(
     },
     photos: {
       type: [String],
+      required: true,
     },
     alumni: {
       type: [String],
+      required : true,
     },
     placementDetails: {
       type: [String],
+      required : true,
     },
     faculty: {
       type: [String],
+      required : true,
     },
     university: {
       type: String,
@@ -44,9 +51,11 @@ const CollegeSchema = new mongoose.Schema(
     },
     logo: {
       type: String,
+      required : true,
     },
     entranceTest: {
       type: [String],
+
     },
     onlineCourse: {
       type: [String],
@@ -58,20 +67,20 @@ const CollegeSchema = new mongoose.Schema(
     videos: {
       type: [String],
     },
-    certificates: [
-      {
-        title: { type: String },
-        url: { type: String },
-      },
-    ],
+    ugc_id: {
+      type: String,
+      unique: true,
+      required:true,
+    },
     research: {
       totalPublications: { type: Number },
       url: { type: [String] },
     },
     accreditation: [
       {
-        provider: String,
-        grade: String,
+        provider:{type:String},
+        grade: {type:String},
+        
       },
     ],
     rating: {

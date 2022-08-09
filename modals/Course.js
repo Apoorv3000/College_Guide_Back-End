@@ -13,7 +13,7 @@ const CoursesSchema = new mongoose.Schema(
         type :[String],
     },
     coursename :{
-      type: [String],
+      type: String,
     },
     
   },

@@ -26,10 +26,6 @@ const UserSchema = new mongoose.Schema(
     address: {
       type: String,
     },
-    ugc_id: {
-      type: String,
-      unique: true,
-    },
     role: {
       type: String,
       default: "user",

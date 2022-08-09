@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 const EntranceTestSchema = new mongoose.Schema(
   {
     name: {
-      type: String,
+      type: [String],
       required: true,
       unique: true,
     },
@@ -11,10 +11,10 @@ const EntranceTestSchema = new mongoose.Schema(
       required: true,
     },
     college: [{ type: String, required: true }],
-    link: {
+    link: [{
       type: String,
       required: true,
-    },
+    }],
   },
 
   { timestamps: true }
