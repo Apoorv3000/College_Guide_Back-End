@@ -12,13 +12,9 @@ const CoursesSchema = new mongoose.Schema(
     colleges: {
       type: [String],
     },
-<<<<<<< HEAD
+
     coursename: {
-      type: [String],
-=======
-    coursename :{
       type: String,
->>>>>>> ce422cd11c986747aa02fe8717d2e95420110dbd
     },
   },
   { timestamps: true }
