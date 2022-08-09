@@ -9,6 +9,7 @@ const CoursesSchema = new mongoose.Schema(
         },
       ],
     },
+
     colleges: {
       type: [String],
     },
