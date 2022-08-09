@@ -6,8 +6,7 @@ const OnlinecourseSchema = new mongoose.Schema(
         link:{type:String},
     }],
     college :{
-        type:[String],
-        required : true,
+        type:String,
     },  
 
   },

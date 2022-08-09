@@ -12,6 +12,7 @@ const StreamSchema = new mongoose.Schema(
     },
     courses :{
         type:[String],
+        required:true,
     },  
   },
   { timestamps: true }

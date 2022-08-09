@@ -24,6 +24,7 @@ const FacultySchema = new mongoose.Schema(
     },
     college :{
         type : String,
+        required:true,
     },
     email :{
         type : String,

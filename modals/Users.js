@@ -25,9 +25,11 @@ const UserSchema = new mongoose.Schema(
     city: {
       type: String,
     },
+
     course: {
       type: String,
     },
+
     role: {
       type: String,
       default: "basic",
