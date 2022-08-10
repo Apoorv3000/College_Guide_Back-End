@@ -43,6 +43,9 @@ const CollegeSchema = new mongoose.Schema(
     faculty: {
       type: [String],
     },
+    courses: {
+      type: [String],
+    },
     university: {
       type: String,
       required: true,
