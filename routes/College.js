@@ -1,9 +1,18 @@
 import express from "express";
-import { AddCollege } from "../controllers/college.js";
-
+import {
+  createCollege,
+  getCollegeStream,
+  getCollegeCourse,
+  getAllColleges,
+} from "../controllers/college.js";
 
 const router = express.Router();
 
-router.post("/colleges", AddCollege);
+router.post("/", createCollege);
 
+router.get("/", getAllColleges);
+
+router.get("/stream/:id", getCollegeStream);
+
+router.get("/:streamId/course", getCollegeCourse);
 export default router;
