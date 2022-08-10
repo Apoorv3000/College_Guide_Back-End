@@ -37,16 +37,15 @@ export const getCollegeStream = async (req, res, next) => {
 };
 
 export const getCollegeCourse = async (req, res, next) => {
-  const streamId = req.params.streamId;
-
   try {
-    const stream = await Stream.findById(streamId);
-    const CourseList = await Promise.all(
-      stream.courses.map((course) => {
+    const college = await College.findById(req.params.id);
+    const courseList = await Promise.all(
+      college.courses.map((course) => {
         return Course.findById(course);
       })
     );
-    res.status(200).json(CourseList);
+
+    res.status(200).json(courseList);
   } catch (error) {
     next(error);
   }

@@ -32,10 +32,9 @@ const CollegeSchema = new mongoose.Schema(
         required: true,
       },
     ],
-    courses: {
-      type: [String],
-    },
-
+    courses: [
+      { type: mongoose.Schema.Types.ObjectId, ref: "Course", required: true },
+    ],
     website: {
       type: String,
       unique: true,
