@@ -42,6 +42,7 @@ const CollegeSchema = new mongoose.Schema(
             throw new Error("Please enter valid Phone number!");
         }
       }
+      
     },
     location: {
       type: String,
@@ -62,6 +63,20 @@ const CollegeSchema = new mongoose.Schema(
         }
       }
     },
+    rank: {
+      type: Number,
+      required: true,
+    },
+    stream: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Stream",
+        required: true,
+      },
+    ],
+    courses: [
+      { type: mongoose.Schema.Types.ObjectId, ref: "Course", required: true },
+    ],
     website: {
       type: String,
       unique: true,
@@ -115,6 +130,14 @@ const CollegeSchema = new mongoose.Schema(
         }
       }
     },
+    placementDetails: {
+      type: [String],
+      required: true,
+    },
+    faculty: {
+      type: [String],
+      required: true,
+    },
     university: {
       type: String,
       required: true,
@@ -138,7 +161,6 @@ const CollegeSchema = new mongoose.Schema(
     },
     entranceTest: {
       type: [String],
-
     },
     onlineCourse: {
       type: [String],
@@ -160,15 +182,19 @@ const CollegeSchema = new mongoose.Schema(
         }
     }
     },
+    ugc_id: {
+      type: String,
+      unique: true,
+      required: true,
+    },
     research: {
       totalPublications: { type: Number },
       url: { type: [String] },
     },
     accreditation: [
       {
-        provider:{type:String},
-        grade: {type:String},
-        
+        provider: { type: String },
+        grade: { type: String },
       },
     ],
     rank: {

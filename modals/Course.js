@@ -9,11 +9,9 @@ const CoursesSchema = new mongoose.Schema(
         },
       ],
     },
-
     colleges: {
       type: [String],
     },
-
     coursename: {
       type: String,
     },

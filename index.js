@@ -45,15 +45,15 @@ app.use(cookieParser());
 app.use("/api/auth", authRoute);
 app.use("/api/user", usersRoute);
 
-app.use("/api", placementRoute);
-app.use("/api", courseRoute);
-app.use("/api", onlineCourseRoute);
-app.use("/api", collegeRoute);
-app.use("/api", universityRoute);
-app.use("/api", entranceTestRoute);
-app.use("/api", streamRoute);
-app.use("/api", facultyRoute);
-app.use("/api", alumniRoute);
+app.use("/api/placement", placementRoute);
+app.use("/api/course", courseRoute);
+app.use("/api/onlineCourse", onlineCourseRoute);
+app.use("/api/college", collegeRoute);
+app.use("/api/university", universityRoute);
+app.use("/api/entranceTest", entranceTestRoute);
+app.use("/api/stream", streamRoute);
+app.use("/api/faculty", facultyRoute);
+app.use("/api/alumni", alumniRoute);
 
 //error handling
 

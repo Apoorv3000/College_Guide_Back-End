@@ -1,13 +1,80 @@
+import College from "../modals/College.js";
+import Course from "../modals/Course.js";
 import Stream from "../modals/Stream.js";
 
-export const AddStream =async(req,res,next)=>{
+// creating the stream for the college as a user but what should be the actual user
+export const createStream = async (req, res, next) => {
+  const collegeId = req.params.collegeId;
+  const newStream = new Stream(req.body);
+
+  try {
+    const savedStream = await newStream.save();
     try {
-        const newStream = new Stream({
-            ...req.body,
-        }); 
-        await newStream.save();
-        res.status(200).send("Added the data successfully")
+      await College.findByIdAndUpdate(collegeId, {
+        $push: { stream: savedStream._id },
+      });
+      await Stream.findByIdAndUpdate(savedStream._id, {
+        $push: { college: collegeId },
+      });
     } catch (error) {
-        next(error)
+      next(error);
     }
-}
+    res.status(200).json({ savedStream });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updateStream = async (req, res, next) => {
+  try {
+    const updatedStream = await Stream.findByIdAndUpdate(
+      req.params.id,
+      { $set: req.body },
+      { new: true }
+    );
+
+    res.status(200).json(updatedStream);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const deleteStream = async (req, res, next) => {
+  try {
+    await Stream.findByIdAndDelete(req.params.id);
+
+    res.status(200).json("Stream has been deleted");
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getStream = async (req, res, next) => {
+  try {
+    const stream = await Stream.findById(req.params.id);
+    res.status(200).json(stream);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getAllStreams = async (req, res, next) => {
+  try {
+    const streams = await Stream.find();
+    res.status(200).json(streams);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getAllcourses = async (req, res, next) => {
+  try {
+    const stream = await Stream.findById(req.params.id);
+    const CourseList = await Promise.all(
+      stream.courses.map((course) => Course.findById(course))
+    );
+    res.status(200).json(CourseList);
+  } catch (error) {
+    next(error);
+  }
+};
