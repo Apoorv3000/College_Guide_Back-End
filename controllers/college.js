@@ -12,10 +12,49 @@ export const createCollege = async (req, res, next) => {
   }
 };
 
-export const getAllColleges = async (req, res, next) => {
+export const updateCollege = async (req, res, next) => {
   try {
-    const college = await College.find();
+    const updatedCollege = await College.findByIdAndUpdate(
+      req.params.id,
+      { $set: req.body },
+      { new: true }
+    );
+
+    res.status(200).json(updatedCollege);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const deleteCollege = async (req, res, next) => {
+  try {
+    await College.findByIdAndDelete(req.params.id);
+    res.status(200).json("College has been deleted");
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getCollege = async (req, res, next) => {
+  try {
+    const college = await College.findById(req.params.id);
     res.status(200).json(college);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getAllColleges = async (req, res, next) => {
+  const { qrank } = req.query;
+  try {
+    let colleges;
+
+    if (qrank) {
+      colleges = await College.find().sort({ rank: -1 }).limit(100);
+    } else {
+      colleges = await College.find();
+    }
+    res.status(200).json(colleges);
   } catch (error) {
     next(error);
   }

@@ -25,6 +25,10 @@ const CollegeSchema = new mongoose.Schema(
       unique: true,
       required: true,
     },
+    rank: {
+      type: Number,
+      required: true,
+    },
     stream: [
       {
         type: mongoose.Schema.Types.ObjectId,
