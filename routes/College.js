@@ -6,6 +6,7 @@ import {
   getAllColleges,
   updateCollege,
   deleteCollege,
+  getCollege,
 } from "../controllers/college.js";
 import { verifyCollege } from "../middlewares/verifyToken.js";
 
@@ -22,5 +23,7 @@ router.get("/", getAllColleges);
 router.get("/stream/:id", getCollegeStream);
 
 router.get("/course/:id", getCollegeCourse);
+
+router.get("/:id", getCollege);
 
 export default router;
