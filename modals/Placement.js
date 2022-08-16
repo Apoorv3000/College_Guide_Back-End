@@ -24,9 +24,6 @@ const PlacementSchema = new mongoose.Schema(
         }
     }
     },
-    college: {
-      type: String,
-    },
   },
   { timestamps: true }
 );
