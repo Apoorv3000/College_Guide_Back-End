@@ -1,9 +1,19 @@
 import express from "express";
-import { AddEntrancTest } from "../controllers/entranceTest.js";
+import { 
+    createEntranceTest,
+    deleteEntranceTest,
+    updateEntranceTest,  
+} from "../controllers/entranceTest.js";
 
+import { verifyCollege } from "../middlewares/verifyToken.js";
 
 const router = express.Router();
 
-router.post("/EntranceTests", AddEntrancTest);
+router.post("/:collegeId",verifyCollege, createEntranceTest);
+
+router.put("/:id", verifyCollege, updateEntranceTest);
+
+router.delete("/:id",verifyCollege,deleteEntranceTest);
+
 
 export default router;
