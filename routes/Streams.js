@@ -1,7 +1,9 @@
 import express from "express";
 import {
+  countCollegeInStream,
   createStream,
   deleteStream,
+  getAllColleges,
   getAllcourses,
   getAllStreams,
   getStream,
@@ -13,16 +15,18 @@ const router = express.Router();
 
 router.post("/:collegeId", verifyCollege, createStream);
 
-// what should be the user role for updating and deleting the stream and  course
-
 router.put("/:id", updateStream);
 
-router.delete("/:id", deleteStream);
+router.delete("/:id/:collegeId", verifyCollege, deleteStream);
 
 router.get("/:id", getStream);
 
 router.get("/", getAllStreams);
 
 router.get("/courses/:id", getAllcourses);
+
+router.get("/countOfColleges/:id", countCollegeInStream);
+
+router.get("/colleges/:id", getAllColleges);
 
 export default router;

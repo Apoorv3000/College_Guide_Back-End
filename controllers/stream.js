@@ -40,9 +40,19 @@ export const updateStream = async (req, res, next) => {
 };
 
 export const deleteStream = async (req, res, next) => {
+  const collegeId = req.params.collegeId;
   try {
     await Stream.findByIdAndDelete(req.params.id);
-
+    try {
+      await College.findByIdAndUpdate(collegeId, {
+        $push: { stream: savedStream._id },
+      });
+      await Stream.findByIdAndUpdate(savedStream._id, {
+        $push: { college: collegeId },
+      });
+    } catch (error) {
+      next(error);
+    }
     res.status(200).json("Stream has been deleted");
   } catch (error) {
     next(error);
@@ -74,6 +84,32 @@ export const getAllcourses = async (req, res, next) => {
       stream.courses.map((course) => Course.findById(course))
     );
     res.status(200).json(CourseList);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const countCollegeInStream = async (req, res, next) => {
+  const stream = await Stream.findById(req.params.id);
+  try {
+    const list = await Promise.all(
+      stream.college.map((college) => {
+        return Stream.countDocuments({ college: college });
+      })
+    );
+    res.status(200).json(list);
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const getAllColleges = async (req, res, next) => {
+  try {
+    const stream = await Stream.findById(req.params.id);
+    const CollegeList = await Promise.all(
+      stream.college.map((college) => College.findById(college))
+    );
+    res.status(200).json(CollegeList);
   } catch (error) {
     next(error);
   }

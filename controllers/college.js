@@ -45,15 +45,88 @@ export const getCollege = async (req, res, next) => {
 };
 
 export const getAllColleges = async (req, res, next) => {
-  const { qrank } = req.query;
   try {
     let colleges;
 
-    if (qrank) {
-      colleges = await College.find().sort({ rank: -1 }).limit(100);
-    } else {
-      colleges = await College.find();
+    let query = [
+      {
+        $lookup: {
+          from: "courses",
+          localField: "courses",
+          foreignField: "_id",
+          as: "course",
+        },
+      },
+      // {
+      //   $lookup: {
+      //     from: "addresses",
+      //     localField: "location",
+      //     foreignField: "_id",
+      //     as: "address",
+      //   },
+      // },
+    ];
+
+    let page = req.query.page ? parseInt(req.query.page) : 0;
+    let perPage = req.query.perPage ? parseInt(req.query.perPage) : 10;
+    let skip = page * perPage;
+
+    query.push({
+      $skip: skip,
+    });
+
+    query.push({
+      $limit: perPage,
+    });
+
+    if (req.query.keyword && req.query.keyword !== "") {
+      query.push({
+        $match: {
+          $or: [
+            {
+              name: { $regex: req.query.keyword, $options: "i" },
+            },
+            {
+              "course.coursename": { $regex: req.query.keyword, $options: "i" },
+            },
+            // {
+            //   "address.city": { $regex: req.query.keyword, $options: "i" },
+            // },
+
+            // {
+            //   "address.state": { $regex: req.query.keyword, $options: "i" },
+            // },
+          ],
+        },
+      });
     }
+
+    query.push({
+      $project: {
+        "course.colleges": 0,
+        "course.createdAt": 0,
+        "course.updatedAt": 0,
+        "course._id": 0,
+        updatedAt: 0,
+        courses: 0,
+      },
+    });
+
+    if (req.query.sortBy && req.query.sortOrder) {
+      let sort = {};
+      sort[req.query.sortBy] = req.query.sortOrder === "asc" ? 1 : -1;
+      query.push({
+        $sort: sort,
+      });
+    } else {
+      query.push({
+        $sort: {
+          createdAt: -1,
+          updatedAt: -1,
+        },
+      });
+    }
+    colleges = await College.aggregate(query);
     res.status(200).json(colleges);
   } catch (error) {
     next(error);

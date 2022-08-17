@@ -34,6 +34,8 @@ export const createCourse = async (req, res, next) => {
 
 export const updateCourse = async (req, res, next) => {
   try {
+    const course = await Course.findByIdAndUpdate(req.params.id);
+    if (!course) return next(createError(404, "Course not found"));
     const updatedCourse = await Course.findByIdAndUpdate(
       req.params.id,
       { $set: req.body },
@@ -47,9 +49,24 @@ export const updateCourse = async (req, res, next) => {
 };
 
 export const deleteCourse = async (req, res, next) => {
+  const collegeId = req.params.collegeId;
   try {
-    await Course.findByIdAndDelete(req.params.id);
+    const course = await Course.findByIdAndUpdate(req.params.id);
+    if (!course) return next(createError(404, "Course not found"));
 
+    await Course.findByIdAndDelete(req.params.id);
+    try {
+      await College.findByIdAndUpdate(collegeId, {
+        $pull: {
+          courses: savedCourse._id,
+        },
+      });
+      await Course.findByIdAndUpdate(savedCourse._id, {
+        $pull: { colleges: collegeId },
+      });
+    } catch (error) {
+      next(error);
+    }
     res.status(200).json("Course has been deleted");
   } catch (error) {
     next(error);
@@ -69,25 +86,6 @@ export const getAllCourses = async (req, res, next) => {
   try {
     const courses = await Course.find();
     res.status(200).json(courses);
-  } catch (error) {
-    next(error);
-  }
-};
-
-export const getAllColleges = async (req, res, next) => {
-  try {
-    const course = await Course.findById(req.params.id);
-    const CollegeList = await Promise.all(
-      course.colleges.map((college) => College.findById(college))
-    );
-    res.status(200).json(CollegeList);
-  } catch (error) {
-    next(error);
-  }
-};
-
-export const CourseSearch = async (req, res, next) => {
-  try {
   } catch (error) {
     next(error);
   }

@@ -9,9 +9,12 @@ const CoursesSchema = new mongoose.Schema(
         },
       ],
     },
-    colleges: {
-      type: [String],
-    },
+    colleges: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "College",
+      },
+    ],
     coursename: {
       type: String,
     },
