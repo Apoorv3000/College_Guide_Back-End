@@ -1,13 +1,47 @@
 import Placement from "../modals/Placement.js";
+import College from "../modals/College.js";
 
-export const AddPlacements =async(req,res,next)=>{
+export const createPlacement =async(req,res,next)=>{
+    const collegeId = req.params.collegeId;
+    const newPlacement = new Stream(req.body);
     try {
-        const newPlacement = new Placement({
-            ...req.body,
-        });
-        await newPlacement.save();
-        res.status(200).send("Added the data successfully")
+        const savedPlacement = await newPlacement.save();
+        try {
+            await College.findByIdAndUpdate(collegeId, {
+                $push : {placement: savedPlacement._id},
+            });
+            await Placement.findByIdAndUpdate(savedPlacement._id, {
+                $push : { college: collegeId },
+            });
+        } catch (error) {
+            next(error);
+        }
+        res.status(200).json({ savedPlacement });
     } catch (error) {
-        next(error)
+        next(error);
     }
-}
+};
+
+export const updatePlacement = async (req, res, next) => {
+    try {
+        const updatedPlacement = await Placement.findByIdAndUpdate(
+            req.params.id,
+            { $set: req.body},
+            { new: true }
+        );
+
+        res.status(200).json(updatedPlacement);
+    }catch (error) {
+        next(error);
+    }
+};
+
+export const deletePlacement = async (req, res, next) => {
+    try {
+        await Placement.findByIdAndDelete(req.params.id);
+        res.status(200).json("Placement has been deleted");
+
+    }catch (error) {
+        next(error);
+    }
+};
