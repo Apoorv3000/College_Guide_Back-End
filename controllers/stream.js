@@ -42,13 +42,16 @@ export const updateStream = async (req, res, next) => {
 export const deleteStream = async (req, res, next) => {
   const collegeId = req.params.collegeId;
   try {
+    const stream = await Stream.findByIdAndUpdate(req.params.id);
+    if (!stream) return next(createError(404, "Stream not found"));
+
     await Stream.findByIdAndDelete(req.params.id);
     try {
       await College.findByIdAndUpdate(collegeId, {
-        $push: { stream: savedStream._id },
+        $pull: { stream: savedStream._id },
       });
       await Stream.findByIdAndUpdate(savedStream._id, {
-        $push: { college: collegeId },
+        $pull: { college: collegeId },
       });
     } catch (error) {
       next(error);

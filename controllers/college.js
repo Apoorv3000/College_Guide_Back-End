@@ -57,14 +57,14 @@ export const getAllColleges = async (req, res, next) => {
           as: "course",
         },
       },
-      // {
-      //   $lookup: {
-      //     from: "addresses",
-      //     localField: "location",
-      //     foreignField: "_id",
-      //     as: "address",
-      //   },
-      // },
+      {
+        $lookup: {
+          from: "addresses",
+          localField: "location",
+          foreignField: "_id",
+          as: "address",
+        },
+      },
     ];
 
     let page = req.query.page ? parseInt(req.query.page) : 0;
@@ -89,13 +89,13 @@ export const getAllColleges = async (req, res, next) => {
             {
               "course.coursename": { $regex: req.query.keyword, $options: "i" },
             },
-            // {
-            //   "address.city": { $regex: req.query.keyword, $options: "i" },
-            // },
+            {
+              "address.city": { $regex: req.query.keyword, $options: "i" },
+            },
 
-            // {
-            //   "address.state": { $regex: req.query.keyword, $options: "i" },
-            // },
+            {
+              "address.state": { $regex: req.query.keyword, $options: "i" },
+            },
           ],
         },
       });
@@ -109,6 +109,7 @@ export const getAllColleges = async (req, res, next) => {
         "course._id": 0,
         updatedAt: 0,
         courses: 0,
+        location: 0,
       },
     });
 

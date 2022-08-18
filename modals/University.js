@@ -6,6 +6,11 @@ const UniversitySchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
+    Nirf_id: {
+      type: String,
+      required: true,
+      unique: true,
+    },
     info: {
       type: String,
       required: true,

@@ -6,7 +6,7 @@ const CollegeSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
-    ugc_id: {
+    Nirf_id: {
       type: String,
       unique: true,
       required: true,
@@ -21,9 +21,8 @@ const CollegeSchema = new mongoose.Schema(
       required: true,
     },
     location: {
-      type: String,
-      unique: true,
-      required: true,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Address",
     },
     rank: {
       type: Number,
