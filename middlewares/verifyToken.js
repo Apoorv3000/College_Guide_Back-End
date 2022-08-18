@@ -42,6 +42,20 @@ export const verifyCollege = (req, res, next) => {
   });
 };
 
+// validate university 
+
+export const verifyUniversity = (req, res, next) => {
+  verifyToken(req, res, next, () => {
+    if(req.user.role === "university" || req.user.role === "admin"){
+      next();
+    } else {
+      return next (
+        createError(403, "You don't have the permission to access this")
+      );
+    }
+  });
+};
+
 // validate admin
 
 export const verifyAdmin = (req, res, next) => {

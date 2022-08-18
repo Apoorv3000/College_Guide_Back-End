@@ -1,14 +1,21 @@
 import express from "express";
-import { AddPlacements } from "../controllers/placement.js";
+import { 
+    createPlacement,
+    deletePlacement,
+    updatePlacement,
+ } from "../controllers/placement.js";
+ import { verifyCollege } from "../middlewares/verifyToken.js";
 
 const router = express.Router();
 
 
-router.post("/placements",AddPlacements);
+router.post("/:collegeId",verifyCollege,createPlacement);
+
+router.put("/:id",verifyCollege,updatePlacement);
+
+router.delete("/:id",verifyCollege,deletePlacement);
 
 
 
-
-
-export default router
+export default router;
 

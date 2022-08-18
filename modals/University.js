@@ -1,10 +1,16 @@
 import mongoose from "mongoose";
+import validator from "validator";
 const UniversitySchema = new mongoose.Schema(
   {
     universityname: {
       type: String,
       required: true,
       unique: true,
+      validate(value) {
+        if (validator.isEmpty(value)) {
+          throw new Error("Please enter University name!");
+        }
+      },
     },
     Nirf_id: {
       type: String,
@@ -14,30 +20,59 @@ const UniversitySchema = new mongoose.Schema(
     info: {
       type: String,
       required: true,
+      validate(value) {
+        if (validator.isEmpty(value)) {
+          throw new Error("Please enter info section!");
+        }
+      },
     },
     email: {
       type: String,
       required: true,
       unique: true,
+      validate(value) {
+        // validator.normalizeEmail(value);
+        if (!validator.isEmail(value)) {
+          throw new Error("Email is inValid!");
+        }
+        if (validator.isEmpty(value)) {
+          throw new Error("Please enter valid Email address!");
+        }
+      },
     },
     telephonenumber: {
       type: [String],
       required: true,
     },
-    college: {
-      type: [String],
-      required: true,
-    },
+
     website: {
       type: [String],
       required: true,
+      validate(value) {
+        if (!validator.isMobilePhone(value, "en-IN")) {
+          throw new Error("Invalid mobile number!");
+        }
+        if (validator.isEmpty(value)) {
+          throw new Error("Please enter valid Phone number!");
+        }
+      },
     },
+    college: {
+      type: [String],
+      required: true,
+      validate(value) {
+        if (validator.isEmpty(value)) {
+          throw new Error("Please enter Colleges name!");
+        }
+      },
+    },
+
     rank: {
       type: Number,
     },
+
     location: {
       type: String,
-      requird: true,
     },
     streams: {
       type: [String],
@@ -46,20 +81,51 @@ const UniversitySchema = new mongoose.Schema(
     photos: {
       type: [String],
       required: true,
+      validate(value) {
+        if (!validator.isURL(value)) {
+          throw new Error("Invalid URL!");
+        }
+        if (validator.isEmpty(value)) {
+          throw new Error("Please enter valid website url!");
+        }
+      },
     },
     logo: {
       type: String,
       required: true,
+      validate(value) {
+        if (!validator.isURL(value)) {
+          throw new Error("Invalid URL!");
+        }
+        if (validator.isEmpty(value)) {
+          throw new Error("Please enter valid website url!");
+        }
+      },
     },
     rating: {
       type: String,
     },
+
     videos: {
       type: [String],
+    },
+
+    videos: {
+      type: [String],
+      validate(value) {
+        if (!validator.isURL(value)) {
+          throw new Error("Invalid URL!");
+        }
+      },
     },
     brochure: {
       type: String,
       required: true,
+      validate(value) {
+        if (validator.isEmpty(value)) {
+          throw new Error("Please enter brochure!");
+        }
+      },
     },
     research: {
       totalPublications: { type: Number },

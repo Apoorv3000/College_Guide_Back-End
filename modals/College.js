@@ -5,25 +5,49 @@ const CollegeSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
+      validate(value) {
+        if (validator.isEmpty(value)) {
+          throw new Error("Please enter College name!");
+        }
+      },
     },
     Nirf_id: {
       type: String,
       unique: true,
       required: true,
+      validate(value) {
+        if (validator.isEmpty(value)) {
+          throw new Error("Please enter ugc_id!");
+        }
+      },
     },
     info: {
       type: String,
       required: true,
+      validate(value) {
+        if (validator.isEmpty(value)) {
+          throw new Error("Please enter College info!");
+        }
+      },
     },
     telephone: {
       type: [Number],
       unique: true,
       required: true,
+      validate(value) {
+        if (!validator.isMobilePhone(value, "en-IN")) {
+          throw new Error("Invalid mobile number!");
+        }
+        if (validator.isEmpty(value)) {
+          throw new Error("Please enter valid Phone number!");
+        }
+      },
     },
     location: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Address",
     },
+
     rank: {
       type: Number,
       required: true,
@@ -42,15 +66,32 @@ const CollegeSchema = new mongoose.Schema(
       type: String,
       unique: true,
       required: true,
+      validate(value) {
+        if (!validator.isURL(value)) {
+          throw new Error("Invalid URL!");
+        }
+        if (validator.isEmpty(value)) {
+          throw new Error("Please enter valid website url!");
+        }
+      },
     },
     photos: {
       type: [String],
       required: true,
+      validate(value) {
+        if (!validator.isURL(value)) {
+          throw new Error("Invalid URL!");
+        }
+        if (validator.isEmpty(value)) {
+          throw new Error("Please enter valid website url!");
+        }
+      },
     },
     alumni: {
       type: [String],
       required: true,
     },
+
     placementDetails: {
       type: [String],
       required: true,
@@ -62,10 +103,23 @@ const CollegeSchema = new mongoose.Schema(
     university: {
       type: String,
       required: true,
+      validate(value) {
+        if (validator.isEmpty(value)) {
+          throw new Error("Please enter university name!");
+        }
+      },
     },
     logo: {
       type: String,
       required: true,
+      validate(value) {
+        if (!validator.isURL(value)) {
+          throw new Error("Invalid URL!");
+        }
+        if (validator.isEmpty(value)) {
+          throw new Error("Please enter valid website url!");
+        }
+      },
     },
     entranceTest: {
       type: [String],
@@ -76,15 +130,21 @@ const CollegeSchema = new mongoose.Schema(
     brochure: {
       type: String,
       required: true,
+      validate(value) {
+        if (validator.isEmpty(value)) {
+          throw new Error("Please enter College brochure!");
+        }
+      },
     },
     videos: {
       type: [String],
+      validate(value) {
+        if (!validator.isURL(value)) {
+          throw new Error("Invalid URL!");
+        }
+      },
     },
-    ugc_id: {
-      type: String,
-      unique: true,
-      required: true,
-    },
+
     research: {
       totalPublications: { type: Number },
       url: { type: [String] },
@@ -95,7 +155,7 @@ const CollegeSchema = new mongoose.Schema(
         grade: { type: String },
       },
     ],
-    rating: {
+    rank: {
       type: String,
     },
     isVerified: {

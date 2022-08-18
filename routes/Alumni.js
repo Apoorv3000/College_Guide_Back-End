@@ -1,9 +1,15 @@
 import express from "express";
-import { AddAlumni } from "../controllers/alumni.js";
+import { 
+    createAlumni,
+    updateAlumni,
+ } from "../controllers/alumni.js";
 
+ import { verifyCollege } from "../middlewares/verifyToken.js";
 
 const router = express.Router();
 
-router.post("/alumni", AddAlumni);
+router.post("/:collegeId",verifyCollege,createAlumni);
+
+router.put("/:id",verifyCollege,updateAlumni);
 
 export default router;
