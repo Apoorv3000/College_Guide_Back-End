@@ -60,7 +60,7 @@ const UserSchema = new mongoose.Schema(
     role: {
       type: String,
       default: "basic",
-      enum: ["student", "college", "alumni", "basic", "uinversity"],
+      enum: ["admin", "college", "alumni", "basic", "uinversity"],
     },
   },
   { timestamps: true }

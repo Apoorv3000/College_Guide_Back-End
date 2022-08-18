@@ -12,7 +12,7 @@ const UniversitySchema = new mongoose.Schema(
         }
       },
     },
-    Nirf_id: {
+    nirf_id: {
       type: String,
       required: true,
       unique: true,
@@ -46,7 +46,7 @@ const UniversitySchema = new mongoose.Schema(
     },
 
     website: {
-      type: [String],
+      type: String,
       required: true,
       validate(value) {
         if (!validator.isMobilePhone(value, "en-IN")) {
@@ -57,15 +57,13 @@ const UniversitySchema = new mongoose.Schema(
         }
       },
     },
-    college: {
-      type: [String],
-      required: true,
-      validate(value) {
-        if (validator.isEmpty(value)) {
-          throw new Error("Please enter Colleges name!");
-        }
+    college: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "College",
+        required: true,
       },
-    },
+    ],
 
     rank: {
       type: Number,
@@ -74,21 +72,24 @@ const UniversitySchema = new mongoose.Schema(
     location: {
       type: String,
     },
-    streams: {
-      type: [String],
-      required: true,
-    },
+    streams: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Stream",
+        required: true,
+      },
+    ],
     photos: {
       type: [String],
       required: true,
-      validate(value) {
-        if (!validator.isURL(value)) {
-          throw new Error("Invalid URL!");
-        }
-        if (validator.isEmpty(value)) {
-          throw new Error("Please enter valid website url!");
-        }
-      },
+      // validate(value) {
+      //   if (!validator.isURL(value)) {
+      //     throw new Error("Invalid URL!");
+      //   }
+      //   if (validator.isEmpty(value)) {
+      //     throw new Error("Please enter valid website url!");
+      //   }
+      // },
     },
     logo: {
       type: String,
@@ -110,14 +111,14 @@ const UniversitySchema = new mongoose.Schema(
       type: [String],
     },
 
-    videos: {
-      type: [String],
-      validate(value) {
-        if (!validator.isURL(value)) {
-          throw new Error("Invalid URL!");
-        }
-      },
-    },
+    // videos: {
+    //   type: [String],
+    //   validate(value) {
+    //     if (!validator.isURL(value)) {
+    //       throw new Error("Invalid URL!");
+    //     }
+    //   },
+    // },
     brochure: {
       type: String,
       required: true,

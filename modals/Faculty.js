@@ -16,7 +16,7 @@ const FacultySchema = new mongoose.Schema(
     },
     department: {
       type: String,
-      required: true,
+      // required: true,
       validate(value) {
         if (validator.isEmpty(value)) {
           throw new Error("Please enter department name!");
@@ -34,14 +34,8 @@ const FacultySchema = new mongoose.Schema(
     },
     qualifiaction: [
       {
-        degree: { type: String },
-        Field: { type: String },
-        required: true,
-        validate(value) {
-          if (validator.isEmpty(value)) {
-            throw new Error("Please enter designation!");
-          }
-        },
+        degree: { type: String, required: true },
+        Field: { type: String, required: true },
       },
     ],
     college: {
@@ -90,5 +84,4 @@ const FacultySchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-
-export default mongoose.model("faculty", FacultySchema);
+export default mongoose.model("Faculty", FacultySchema);

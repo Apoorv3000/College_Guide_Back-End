@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import validator from "validator";
 const CollegeSchema = new mongoose.Schema(
   {
     name: {
@@ -11,13 +12,13 @@ const CollegeSchema = new mongoose.Schema(
         }
       },
     },
-    Nirf_id: {
+    nirf_id: {
       type: String,
       unique: true,
       required: true,
       validate(value) {
         if (validator.isEmpty(value)) {
-          throw new Error("Please enter ugc_id!");
+          throw new Error("Please enter Nirf id !");
         }
       },
     },
@@ -34,14 +35,14 @@ const CollegeSchema = new mongoose.Schema(
       type: [Number],
       unique: true,
       required: true,
-      validate(value) {
-        if (!validator.isMobilePhone(value, "en-IN")) {
-          throw new Error("Invalid mobile number!");
-        }
-        if (validator.isEmpty(value)) {
-          throw new Error("Please enter valid Phone number!");
-        }
-      },
+      // validate(value) {
+      //   if (!validator.isMobilePhone(value, "en-IN")) {
+      //     throw new Error("Invalid mobile number!");
+      //   }
+      //   if (validator.isEmpty(value)) {
+      //     throw new Error("Please enter valid Phone number!");
+      //   }
+      // },
     },
     location: {
       type: mongoose.Schema.Types.ObjectId,
@@ -78,14 +79,14 @@ const CollegeSchema = new mongoose.Schema(
     photos: {
       type: [String],
       required: true,
-      validate(value) {
-        if (!validator.isURL(value)) {
-          throw new Error("Invalid URL!");
-        }
-        if (validator.isEmpty(value)) {
-          throw new Error("Please enter valid website url!");
-        }
-      },
+      // validate(value) {
+      //   if (!validator.isURL(value)) {
+      //     throw new Error("Invalid URL!");
+      //   }
+      //   if (validator.isEmpty(value)) {
+      //     throw new Error("Please enter valid website url!");
+      //   }
+      // },
     },
     alumni: {
       type: [String],
@@ -138,11 +139,11 @@ const CollegeSchema = new mongoose.Schema(
     },
     videos: {
       type: [String],
-      validate(value) {
-        if (!validator.isURL(value)) {
-          throw new Error("Invalid URL!");
-        }
-      },
+      // validate(value) {
+      //   if (!validator.isURL(value)) {
+      //     throw new Error("Invalid URL!");
+      //   }
+      // },
     },
 
     research: {
@@ -160,6 +161,7 @@ const CollegeSchema = new mongoose.Schema(
     },
     isVerified: {
       type: Boolean,
+      default: false,
     },
   },
   { timestamps: true }

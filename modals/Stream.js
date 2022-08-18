@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import validator from "validator";
 const StreamSchema = new mongoose.Schema(
   {
     streamname: {
@@ -18,11 +19,11 @@ const StreamSchema = new mongoose.Schema(
     courses: {
       type: [String],
       required: true,
-      validate(value) {
-        if (validator.isEmpty(value)) {
-          throw new Error("Please enter courses!");
-        }
-      },
+      // validate(value) {
+      //   if (validator.isEmpty(value)) {
+      //     throw new Error("Please enter courses!");
+      //   }
+      // },
     },
   },
   { timestamps: true }
