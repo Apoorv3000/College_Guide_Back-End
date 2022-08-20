@@ -101,6 +101,9 @@ const CollegeSchema = new mongoose.Schema(
       type: [String],
       required: true,
     },
+    courses: {
+      type: [String],
+    },
     university: {
       type: String,
       required: true,
