@@ -4,8 +4,8 @@ import {
   deleteAddress,
   getAddress,
   updateAddress,
-} from "../controllers/address";
-import { verifyCollege } from "../middlewares/verifyToken";
+} from "../controllers/address.js";
+import { verifyCollege } from "../middlewares/verifyToken.js";
 
 const router = express.Router();
 

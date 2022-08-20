@@ -7,6 +7,7 @@ import {
   updateCollege,
   deleteCollege,
   getCollege,
+  getCollegePlacement,
 } from "../controllers/college.js";
 import { verifyCollege } from "../middlewares/verifyToken.js";
 
@@ -21,6 +22,8 @@ router.delete("/:id", verifyCollege, deleteCollege);
 router.get("/", getAllColleges);
 
 router.get("/stream/:id", getCollegeStream);
+
+router.get("/placement/:id", getCollegePlacement);
 
 router.get("/course/:id", getCollegeCourse);
 

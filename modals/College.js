@@ -94,7 +94,8 @@ const CollegeSchema = new mongoose.Schema(
     },
 
     placementDetails: {
-      type: [String],
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Placement",
       required: true,
     },
     faculty: {

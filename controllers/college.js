@@ -1,6 +1,7 @@
 import College from "../modals/College.js";
 import Stream from "../modals/Stream.js";
 import Course from "../modals/Course.js";
+import Placement from "../modals/Placement.js";
 
 export const createCollege = async (req, res, next) => {
   try {
@@ -144,6 +145,23 @@ export const getCollegeStream = async (req, res, next) => {
     );
 
     res.status(200).json(StreamList);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getCollegePlacement = async (req, res, next) => {
+  try {
+    const college = await College.findById(req.params.id);
+    const placementId = college.placementDetails;
+    const address = await Placement.findById(placementId);
+    //  await Promise.all(
+    //   college.stream.map((stream) => {
+    //     return Stream.findById(stream);
+    //   })
+    // );
+
+    res.status(200).json(address);
   } catch (error) {
     next(error);
   }

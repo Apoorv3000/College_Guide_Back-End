@@ -16,6 +16,7 @@ import entranceTestRoute from "./routes/EntranceTest.js";
 import streamRoute from "./routes/Streams.js";
 import facultyRoute from "./routes/Faculty.js";
 import alumniRoute from "./routes/Alumni.js";
+import addressRoute from "./routes/Address.js";
 
 dotenv.config();
 const app = express();
@@ -54,6 +55,7 @@ app.use("/api/entranceTest", entranceTestRoute);
 app.use("/api/stream", streamRoute);
 app.use("/api/faculty", facultyRoute);
 app.use("/api/alumni", alumniRoute);
+app.use("/api/address", addressRoute);
 
 //error handling
 
