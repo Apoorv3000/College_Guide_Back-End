@@ -1,78 +1,150 @@
 import mongoose from "mongoose";
+import validator from "validator";
 const UniversitySchema = new mongoose.Schema(
   {
     universityname: {
       type: String,
       required: true,
       unique: true,
+      validate(value) {
+        if (validator.isEmpty(value)) {
+          throw new Error("Please enter University name!");
+        }
+      },
+    },
+    nirf_id: {
+      type: String,
+      required: true,
+      unique: true,
     },
     info: {
-        type: String,
+      type: String,
+      required: true,
+      validate(value) {
+        if (validator.isEmpty(value)) {
+          throw new Error("Please enter info section!");
+        }
+      },
     },
     email: {
       type: String,
       required: true,
       unique: true,
-    },
-    phone: {
-      type: Number,
-      unique: true,
+      validate(value) {
+        // validator.normalizeEmail(value);
+        if (!validator.isEmail(value)) {
+          throw new Error("Email is inValid!");
+        }
+        if (validator.isEmpty(value)) {
+          throw new Error("Please enter valid Email address!");
+        }
+      },
     },
     telephonenumber: {
-        type : [String],
+      type: [String],
+      required: true,
     },
-    college: {
-        type : [String],
+
+    website: {
+      type: String,
+      required: true,
+      validate(value) {
+        if (!validator.isMobilePhone(value, "en-IN")) {
+          throw new Error("Invalid mobile number!");
+        }
+        if (validator.isEmpty(value)) {
+          throw new Error("Please enter valid Phone number!");
+        }
+      },
     },
-    website :{
-        type : [String],
+    college: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "College",
+        required: true,
+      },
+    ],
+
+    rank: {
+      type: Number,
     },
-    rank:{
-        type: Number,
+
+    location: {
+      type: String,
     },
-    location :{
-        type: String,
+    streams: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Stream",
+        required: true,
+      },
+    ],
+    photos: {
+      type: [String],
+      required: true,
+      // validate(value) {
+      //   if (!validator.isURL(value)) {
+      //     throw new Error("Invalid URL!");
+      //   }
+      //   if (validator.isEmpty(value)) {
+      //     throw new Error("Please enter valid website url!");
+      //   }
+      // },
     },
-    streams :{
-        type :[String],
+    logo: {
+      type: String,
+      required: true,
+      validate(value) {
+        if (!validator.isURL(value)) {
+          throw new Error("Invalid URL!");
+        }
+        if (validator.isEmpty(value)) {
+          throw new Error("Please enter valid website url!");
+        }
+      },
     },
-    photos :{
-        type :[String],
+    rating: {
+      type: String,
     },
-    logo :{
-        type : String,
+
+    videos: {
+      type: [String],
     },
-    certifications :{
-        type : [
-            {
-                title:{type: String},
-                url:{type : String}
-            },
-        ]
+
+    // videos: {
+    //   type: [String],
+    //   validate(value) {
+    //     if (!validator.isURL(value)) {
+    //       throw new Error("Invalid URL!");
+    //     }
+    //   },
+    // },
+    brochure: {
+      type: String,
+      required: true,
+      validate(value) {
+        if (validator.isEmpty(value)) {
+          throw new Error("Please enter brochure!");
+        }
+      },
     },
-    rating :{
-        type : String,
+    research: {
+      totalPublications: { type: Number },
+      title: [
+        {
+          name: { type: String },
+          url: { type: String },
+        },
+      ],
     },
-    videos :{
-        type :[String],
+    accreditation: {
+      type: [
+        {
+          provider: { type: String },
+          grade: { type: String },
+        },
+      ],
     },
-    brochure :{
-        type : String,
-    },
-    research :[{
-        totalPublications : {type : Number},
-        url : [{type : String}],
-    }],
-    accreditation :{
-        type : [
-            {
-                provider:{type: String},
-                grade:{type : String},
-            }
-        ]
-    },
-        
-    
   },
   { timestamps: true }
 );
