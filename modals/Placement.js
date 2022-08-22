@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
+import validator from "validator";
 const PlacementSchema = new mongoose.Schema(
   {
     average: {
-      type: Number,
+      type: String,
       required: true,
       validate(value) {
         if (validator.isEmpty(value)) {
@@ -11,18 +12,18 @@ const PlacementSchema = new mongoose.Schema(
       },
     },
     median: {
-      type: Number,
+      type: String,
     },
     highest: {
-      type: Number,
+      type: String,
     },
     images: {
       type: [String],
-      validate(value) {
-        if (!validator.isURL(value)) {
-          throw new Error("Invalid URL!");
-        }
-      },
+      // validate(value) {
+      //   if (!validator.isURL(value)) {
+      //     throw new Error("Invalid URL!");
+      //   }
+      // },
     },
   },
   { timestamps: true }

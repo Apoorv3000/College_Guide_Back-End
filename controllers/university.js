@@ -120,6 +120,8 @@ export const getAllUniversity = async (req, res, next) => {
         updatedAt: 0,
         streams: 0,
         location: 0,
+        "college.name": 1,
+        "college.logo": 1,
       },
     });
 

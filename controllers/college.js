@@ -7,7 +7,10 @@ export const createCollege = async (req, res, next) => {
   try {
     const newCollege = new College(req.body);
     await newCollege.save();
-    res.status(200).send("Added the data successfully");
+
+    res
+      .status(200)
+      .json({ message: "Added the data successfully", newCollege });
   } catch (error) {
     next(error);
   }

@@ -38,8 +38,13 @@ const port = process.env.PORT || 8080;
 //middlewares
 
 app.use(cors());
-app.use(express.json());
 app.use(cookieParser());
+app.use(express.json());
+
+//base route
+app.get("/", (req, res) => {
+  console.log("cookies:", req.cookies.access_token);
+});
 
 //routes
 

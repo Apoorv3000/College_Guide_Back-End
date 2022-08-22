@@ -3,34 +3,32 @@ const AlumniSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: true,
+      // required: true,
       unique: true,
       lowercase: true,
       trim: true,
       minlength: [2, "minimum 2letters"],
       maxlength: 30,
     },
+
     email: {
       type: String,
-      required: true,
-      email: {
-        type: String,
-        required: true,
-        unique: true,
-        validate(value) {
-          // validator.normalizeEmail(value);
-          if (!validator.isEmail(value)) {
-            throw new Error("Email is inValid!");
-          }
-          if (validator.isEmpty(value)) {
-            throw new Error("Please enter valid Email address!");
-          }
-        },
+      // required: true,
+      unique: true,
+      validate(value) {
+        // validator.normalizeEmail(value);
+        if (!validator.isEmail(value)) {
+          throw new Error("Email is inValid!");
+        }
+        if (validator.isEmpty(value)) {
+          throw new Error("Please enter valid Email address!");
+        }
       },
     },
+
     photo: {
       type: String,
-      required: true,
+      // required: true,
       validate(value) {
         if (!validator.isURL(value)) {
           throw new Error("Invalid URL!");
@@ -58,7 +56,7 @@ const AlumniSchema = new mongoose.Schema(
     },
     college: {
       type: String,
-      required: true,
+      // required: true,
       validate(value) {
         if (validator.isEmpty(value)) {
           throw new Error("Please enter your college!");
@@ -76,7 +74,7 @@ const AlumniSchema = new mongoose.Schema(
     },
     branch: {
       type: String,
-      required: true,
+      // required: true,
       validate(value) {
         if (validator.isEmpty(value)) {
           throw new Error("Please enter your branch!");
