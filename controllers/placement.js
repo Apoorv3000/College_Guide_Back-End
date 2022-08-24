@@ -8,7 +8,7 @@ export const createPlacement = async (req, res, next) => {
     const savedPlacement = await newPlacement.save();
     try {
       await College.findByIdAndUpdate(collegeId, {
-        $push: { placement: savedPlacement._id },
+        $push: { placementDetails: savedPlacement._id },
       });
     } catch (error) {
       next(error);
@@ -41,3 +41,5 @@ export const deletePlacement = async (req, res, next) => {
     next(error);
   }
 };
+
+// export const getPlacement

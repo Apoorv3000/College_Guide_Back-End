@@ -97,11 +97,13 @@ const CollegeSchema = new mongoose.Schema(
       // required: true,
     },
 
-    placementDetails: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Placement",
-      // required: true,
-    },
+    placementDetails: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Placement",
+        // required: true,
+      },
+    ],
     faculty: {
       type: [String],
       // required: true,

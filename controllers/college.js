@@ -156,15 +156,15 @@ export const getCollegeStream = async (req, res, next) => {
 export const getCollegePlacement = async (req, res, next) => {
   try {
     const college = await College.findById(req.params.id);
-    const placementId = college.placementDetails;
-    const address = await Placement.findById(placementId);
+    const placementId = college.placementDetails[0];
+    const placement = await Placement.findById(placementId);
     //  await Promise.all(
     //   college.stream.map((stream) => {
     //     return Stream.findById(stream);
     //   })
     // );
 
-    res.status(200).json(address);
+    res.status(200).json(placement);
   } catch (error) {
     next(error);
   }
