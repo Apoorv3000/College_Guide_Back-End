@@ -40,38 +40,14 @@ const AlumniSchema = new mongoose.Schema(
       },
     },
     designation: {
-      type: Object,
-      companyName: { type: String },
-      position: {
-        type: String,
-      },
-    },
-    websites: {
       type: String,
-      enum: ["Twitter", "Linkedin"],
-      validate(value) {
-        if (!validator.isURL(value)) {
-          throw new Error("Invalid URL!");
-        }
-      },
     },
-    college: {
+    companyName: { type: String },
+    LinkedIn: { type: String },
+    Twitter: { type: String },
+
+    researchLink: {
       type: String,
-      // required: true,
-      validate(value) {
-        if (validator.isEmpty(value)) {
-          throw new Error("Please enter your college!");
-        }
-      },
-    },
-    research: {
-      totalPublications: { type: Number },
-      title: [
-        {
-          name: { type: String },
-          url: { type: String },
-        },
-      ],
     },
     branch: {
       type: String,

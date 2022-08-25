@@ -33,12 +33,9 @@ const FacultySchema = new mongoose.Schema(
         }
       },
     },
-    qualifiaction: [
-      {
-        degree: { type: String, required: true },
-        Field: { type: String, required: true },
-      },
-    ],
+    qualifiaction: {
+      type: String,
+    },
 
     email: {
       type: String,
@@ -66,13 +63,7 @@ const FacultySchema = new mongoose.Schema(
       },
     },
     research: {
-      totalPublications: { type: Number },
-      title: [
-        {
-          name: { type: String },
-          url: { type: String },
-        },
-      ],
+      type: String,
     },
   },
   { timestamps: true }

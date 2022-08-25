@@ -6,6 +6,7 @@ const CoursesSchema = new mongoose.Schema(
         {
           name: { type: String },
           seats: { type: String },
+          fees: { type: Number },
         },
       ],
     },
