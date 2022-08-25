@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import validator from "validator";
 const FacultySchema = new mongoose.Schema(
   {
     name: {
@@ -38,18 +39,10 @@ const FacultySchema = new mongoose.Schema(
         Field: { type: String, required: true },
       },
     ],
-    college: {
-      type: String,
-      required: true,
-      validate(value) {
-        if (validator.isEmpty(value)) {
-          throw new Error("Please enter College name!");
-        }
-      },
-    },
+
     email: {
       type: String,
-      required: true,
+
       validate(value) {
         // validator.normalizeEmail(value);
         if (!validator.isEmail(value)) {
@@ -62,7 +55,7 @@ const FacultySchema = new mongoose.Schema(
     },
     photo: {
       type: String,
-      required: true,
+
       validate(value) {
         if (!validator.isURL(value)) {
           throw new Error("Invalid URL!");

@@ -153,14 +153,18 @@ const CollegeSchema = new mongoose.Schema(
       // },
     },
 
-    research: {
-      totalPublications: { type: Number },
-      url: { type: [String] },
-    },
+    research: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Research",
+        // required: true,
+      },
+    ],
     accreditation: [
       {
-        provider: { type: String },
-        grade: { type: String },
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Accreditation",
+        // required: true,
       },
     ],
     rank: {

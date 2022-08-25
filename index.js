@@ -17,6 +17,8 @@ import streamRoute from "./routes/Streams.js";
 import facultyRoute from "./routes/Faculty.js";
 import alumniRoute from "./routes/Alumni.js";
 import addressRoute from "./routes/Address.js";
+import accreditationRoute from "./routes/Accreditation.js";
+import researchRoute from "./routes/Research.js";
 
 dotenv.config();
 const app = express();
@@ -61,6 +63,8 @@ app.use("/api/stream", streamRoute);
 app.use("/api/faculty", facultyRoute);
 app.use("/api/alumni", alumniRoute);
 app.use("/api/address", addressRoute);
+app.use("/api/accreditation", accreditationRoute);
+app.use("/api/research", researchRoute);
 
 //error handling
 
